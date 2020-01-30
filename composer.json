@@ -1,0 +1,43 @@
+{
+    "name": "hedii/laravel-swift-storage",
+    "description": "Out of the box Ovh Swift storage usage for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hedii",
+            "email": "contact@hedichaibi.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4.0",
+        "laravel/framework": "^6.0",
+        "nimbusoft/flysystem-openstack-swift": "^0.3.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hedii\\LaravelOvhSwiftStorage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hedii\\LaravelOvhSwiftStorage\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hedii\\LaravelOvhSwiftStorage\\OvhSwiftStorageServiceProvider"
+            ]
+        }
+    }
+}

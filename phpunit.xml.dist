@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         stopOnFailure="true">
+    <testsuites>
+        <testsuite name="Laravel Ovh Swift Storage Test Suite">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <!--
+        <env name="OVH_SWIFT_OPENSTACK_AUTH_URL" value="https://auth.cloud.ovh.net/v3/"/>
+        <env name="OVH_SWIFT_OPENSTACK_REGION" value="GRA"/>
+        <env name="OVH_SWIFT_OPENSTACK_PROJECT_ID" value=""/>
+        <env name="OVH_SWIFT_CONTAINER_NAME" value="test"/>
+        <env name="OVH_SWIFT_PREFIX" value="prefix"/>
+        <env name="OVH_SWIFT_OPENSTACK_USERNAME" value=""/>
+        <env name="OVH_SWIFT_OPENSTACK_PASSWORD" value=""/>
+        <env name="OVH_SWIFT_VISIBILITY" value="public"/>
+        -->
+    </php>
+</phpunit>
