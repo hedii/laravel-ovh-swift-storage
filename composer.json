@@ -1,6 +1,7 @@
 {
     "name": "hedii/laravel-swift-storage",
     "description": "Out of the box Ovh Swift storage usage for Laravel",
+    "keywords": ["laravel", "storage", "filesystem", "disk", "ovh", "swift", "openstack", "hedii"],
     "type": "library",
     "license": "MIT",
     "authors": [
