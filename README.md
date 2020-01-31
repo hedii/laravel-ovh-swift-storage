@@ -35,10 +35,11 @@ return [
             'region' => env('OVH_SWIFT_OPENSTACK_REGION'),
             'projectId' => env('OVH_SWIFT_OPENSTACK_PROJECT_ID'),
             'containerName' => env('OVH_SWIFT_CONTAINER_NAME'),
-            'prefix' => env('OVH_SWIFT_PREFIX', null),
+            'prefix' => env('OVH_SWIFT_PREFIX'),
             'username' => env('OVH_SWIFT_OPENSTACK_USERNAME'),
             'password' => env('OVH_SWIFT_OPENSTACK_PASSWORD'),
             'visibility' => env('OVH_SWIFT_VISIBILITY', 'public'),
+            'public_url' => env('OVH_SWIFT_PUBLIC_URL'),
         ],
     
     ],

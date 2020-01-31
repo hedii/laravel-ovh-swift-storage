@@ -90,6 +90,44 @@ class OvhSwiftStorageTest extends TestCase
         Storage::url($fileName);
     }
 
+    /** @test */
+    public function it_should_use_a_custom_public_url_if_needed(): void
+    {
+        $this->app['config']->set('filesystems.disks.ovh-swift', $this->getOvhSwiftConfiguration([
+            'publicUrl' => 'http://foo.example.com',
+            'prefix' => null
+        ]));
+
+        $fileName = $this->randomFileName();
+        $content = $this->randomContent();
+
+        Storage::put($fileName, $content);
+
+        $this->assertSame(
+            "http://foo.example.com/{$fileName}",
+            Storage::url($fileName)
+        );
+    }
+
+    /** @test */
+    public function it_should_preserve_prefix_with_a_custom_public_url(): void
+    {
+        $this->app['config']->set('filesystems.disks.ovh-swift', $this->getOvhSwiftConfiguration([
+            'publicUrl' => 'http://foo.example.com',
+            'prefix' => 'a-prefix'
+        ]));
+
+        $fileName = $this->randomFileName();
+        $content = $this->randomContent();
+
+        Storage::put($fileName, $content);
+
+        $this->assertSame(
+            "http://foo.example.com/a-prefix/{$fileName}",
+            Storage::url($fileName)
+        );
+    }
+
     protected function getOvhSwiftConfiguration(array $config = []): array
     {
         $baseConfig = [
@@ -102,6 +140,7 @@ class OvhSwiftStorageTest extends TestCase
             'username' => env('OVH_SWIFT_OPENSTACK_USERNAME'),
             'password' => env('OVH_SWIFT_OPENSTACK_PASSWORD'),
             'visibility' => env('OVH_SWIFT_VISIBILITY'),
+            'publicUrl' => env('OVH_SWIFT_PUBLIC_URL'),
         ];
 
         return array_merge($baseConfig, $config);

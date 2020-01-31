@@ -74,11 +74,15 @@ class OvhSwiftStorageServiceProvider extends ServiceProvider
     private function getContainerPublicUrl(array $config): ?string
     {
         if (isset($config['visibility']) && $config['visibility'] === 'public') {
-            $region = strtolower($config['region']);
+            if (isset($config['publicUrl']) && $config['publicUrl']) {
+                $base = $config['publicUrl'];
+            } else {
+                $region = strtolower($config['region']);
 
-            return (isset($config['prefix']) && $config['prefix'])
-                ? "https://storage.{$region}.cloud.ovh.net/v1/AUTH_{$config['projectId']}/{$config['containerName']}/{$config['prefix']}"
-                : "https://storage.{$region}.cloud.ovh.net/v1/AUTH_{$config['projectId']}/{$config['containerName']}";
+                $base = "https://storage.{$region}.cloud.ovh.net/v1/AUTH_{$config['projectId']}/{$config['containerName']}";
+            }
+
+            return (isset($config['prefix']) && $config['prefix']) ? "{$base}/{$config['prefix']}" : $base;
         }
 
         return null;
