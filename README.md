@@ -39,7 +39,7 @@ return [
             'username' => env('OVH_SWIFT_OPENSTACK_USERNAME'),
             'password' => env('OVH_SWIFT_OPENSTACK_PASSWORD'),
             'visibility' => env('OVH_SWIFT_VISIBILITY', 'public'),
-            'public_url' => env('OVH_SWIFT_PUBLIC_URL'),
+            'publicUrl' => env('OVH_SWIFT_PUBLIC_URL'),
         ],
     
     ],
