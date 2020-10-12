@@ -59,7 +59,13 @@ class OvhSwiftStorageServiceProvider extends ServiceProvider
 
             $container = $openstack->objectStoreV1()->getContainer($config['containerName']);
 
-            $adapter = new OvhSwiftStorageAdapter($container, $config['prefix'], $options['publicUrl']);
+            $adapter = new OvhSwiftStorageAdapter(
+                $container,
+                $options['publicUrl'],
+                $config['visibility'] ?? OvhSwiftStorageAdapter::VISIBILITY_PUBLIC,
+                $config['prefix'] ?? null,
+                $config['urlKey'] ?? null
+            );
 
             return new Filesystem($adapter);
         });
@@ -69,22 +75,18 @@ class OvhSwiftStorageServiceProvider extends ServiceProvider
      * Get the container public url.
      *
      * @param array $config
-     * @return string|null
+     * @return string
      */
-    private function getContainerPublicUrl(array $config): ?string
+    private function getContainerPublicUrl(array $config): string
     {
-        if (isset($config['visibility']) && $config['visibility'] === 'public') {
-            if (isset($config['publicUrl']) && $config['publicUrl']) {
-                $base = $config['publicUrl'];
-            } else {
-                $region = strtolower($config['region']);
+        if (isset($config['publicUrl']) && $config['publicUrl']) {
+            $base = $config['publicUrl'];
+        } else {
+            $region = strtolower($config['region']);
 
-                $base = "https://storage.{$region}.cloud.ovh.net/v1/AUTH_{$config['projectId']}/{$config['containerName']}";
-            }
-
-            return (isset($config['prefix']) && $config['prefix']) ? "{$base}/{$config['prefix']}" : $base;
+            $base = "https://storage.{$region}.cloud.ovh.net/v1/AUTH_{$config['projectId']}/{$config['containerName']}";
         }
 
-        return null;
+        return (isset($config['prefix']) && $config['prefix']) ? "{$base}/{$config['prefix']}" : $base;
     }
 }

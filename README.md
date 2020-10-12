@@ -40,6 +40,7 @@ return [
             'password' => env('OVH_SWIFT_OPENSTACK_PASSWORD'),
             'visibility' => env('OVH_SWIFT_VISIBILITY', 'public'),
             'publicUrl' => env('OVH_SWIFT_PUBLIC_URL'),
+            'urlKey' => env('OVH_SWIFT_URL_KEY'),
         ],
     
     ],
@@ -61,19 +62,47 @@ OVH_SWIFT_OPENSTACK_PASSWORD=xxxxxxxxxxxxxxxxxxx
 
 Once you have modified the Laravel filesystem configuration and the environment variables, you can use the new Ovh Swift storage disk [as any Laravel storage disk](https://laravel.com/docs/6.x/filesystem#obtaining-disk-instances).
 
+### Private containers
+
+By default, this package assumes you are using a public Object Storage container.
+
+If you want to use a private container with temporary urls, you have to configure a [temporary url key](https://docs.ovh.com/ie/en/public-cloud/share_an_object_via_a_temporary_url/) and set the visibility to `private`.
+
+```
+OVH_SWIFT_OPENSTACK_REGION=GRA
+OVH_SWIFT_OPENSTACK_PROJECT_ID=xxxxxxxxxxxxxxxxxxx
+OVH_SWIFT_CONTAINER_NAME=xxxxxxxxxxxxxxxxxxx
+OVH_SWIFT_OPENSTACK_USERNAME=xxxxxxxxxxxxxxxxxxx
+OVH_SWIFT_OPENSTACK_PASSWORD=xxxxxxxxxxxxxxxxxxx
+OVH_SWIFT_VISIBILITY=private
+OVH_SWIFT_URL_KEY=xxxxxxxxxxxxxxxxxxx
+```
+
+Be aware you will not be able to retrieve regular urls with a private container, only temporary urls.
+
 ### Example
 
 ```php
 use Illuminate\Support\Facades\Storage;
 
 Storage::disk('ovh-swift')->put('avatars/1', $fileContents);
+
+$url = Storage::url('avatars/1');
+
+// if using private containers:
+$temporaryUrl = Storage::temporaryUrl('avatars/1', now()->addMinute());
 ```
 
 ## Testing
 
-If you want to test the package, you must create a new Ovh Object Storage container and a new Openstack user. Once it's done, copy `phpunit.xml.dist` to `phpunit.xml` and update the environment variables.
+If you want to test the package, you must create a new Openstack user and two new Ovh Object Storage containers:
 
-Be aware that the test suite will delete all files in the container after each test. **Do not test against a production container!**
+- A public container named `test`
+- A private container named `test-private`
+
+Once it's done, copy `phpunit.xml.dist` to `phpunit.xml` and update the environment variables.
+
+Be aware that the test suite will delete all files in the containers after each test. **Do not test against a production containers!**
 
 To start test suite, run this command:
 

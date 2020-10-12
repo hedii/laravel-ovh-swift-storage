@@ -17,6 +17,7 @@
         <env name="OVH_SWIFT_OPENSTACK_USERNAME" value=""/>
         <env name="OVH_SWIFT_OPENSTACK_PASSWORD" value=""/>
         <env name="OVH_SWIFT_VISIBILITY" value="public"/>
+        <env name="OVH_SWIFT_URL_KEY" value=""/>
         -->
     </php>
 </phpunit>
