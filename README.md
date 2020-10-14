@@ -9,6 +9,8 @@ Out of the box [Ovh Swift storage](https://www.ovhcloud.com/en-ie/public-cloud/o
 - [Table of contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Private containers](#private-containers)
+  - [Request options](#request-options)
   - [Example](#example)
 - [Testing](#testing)
 - [License](#license)
