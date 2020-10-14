@@ -62,6 +62,50 @@ class PrivateContainerTest extends TestCase
         );
     }
 
+    public function testItUseACustomPublicUrl(): void
+    {
+        $this->app['config']->set('filesystems.disks.ovh-swift', $this->getOvhSwiftConfiguration([
+            'visibility' => 'private',
+            'containerName' => 'test-private',
+            'publicUrl' => 'http://foo.example.com',
+            'prefix' => null,
+        ]));
+
+        $fileName = $this->randomFileName();
+        $content = $this->randomContent();
+
+        Storage::put($fileName, $content);
+
+        $this->assertTrue(
+            Str::startsWith(
+                Storage::temporaryUrl($fileName, Carbon::now()->addMinute()),
+                "http://foo.example.com/{$fileName}"
+            ),
+        );
+    }
+
+    public function testItPreservesPrefixWithACustomPublicUrl(): void
+    {
+        $this->app['config']->set('filesystems.disks.ovh-swift', $this->getOvhSwiftConfiguration([
+            'visibility' => 'private',
+            'containerName' => 'test-private',
+            'publicUrl' => 'http://foo.example.com',
+            'prefix' => 'a-prefix',
+        ]));
+
+        $fileName = $this->randomFileName();
+        $content = $this->randomContent();
+
+        Storage::put($fileName, $content);
+
+        $this->assertTrue(
+            Str::startsWith(
+                Storage::temporaryUrl($fileName, Carbon::now()->addMinute()),
+                "http://foo.example.com/a-prefix/{$fileName}"
+            ),
+        );
+    }
+
     public function testItThrowsWhenUsingUrlOnPrivateContainer(): void
     {
         $this->app['config']->set('filesystems.disks.ovh-swift', $this->getOvhSwiftConfiguration([
