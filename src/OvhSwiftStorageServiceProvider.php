@@ -37,6 +37,7 @@ class OvhSwiftStorageServiceProvider extends ServiceProvider
                     ],
                 ],
                 'publicUrl' => $this->getContainerPublicUrl($config),
+                'requestOptions' => $config['requestOptions'] ?? [],
             ];
 
             $openstack = new OpenStack($options);

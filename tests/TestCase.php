@@ -46,6 +46,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'visibility' => env('OVH_SWIFT_VISIBILITY', 'public'),
             'publicUrl' => env('OVH_SWIFT_PUBLIC_URL'),
             'urlKey' => env('OVH_SWIFT_URL_KEY'),
+            'requestOptions' => [],
         ];
 
         return array_merge($baseConfig, $config);

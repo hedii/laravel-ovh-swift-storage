@@ -41,6 +41,7 @@ return [
             'visibility' => env('OVH_SWIFT_VISIBILITY', 'public'),
             'publicUrl' => env('OVH_SWIFT_PUBLIC_URL'),
             'urlKey' => env('OVH_SWIFT_URL_KEY'),
+            'requestOptions' => [],
         ],
     
     ],
@@ -79,6 +80,29 @@ OVH_SWIFT_URL_KEY=xxxxxxxxxxxxxxxxxxx
 ```
 
 Be aware you will not be able to retrieve regular urls with a private container, only temporary urls.
+
+### Request options
+
+If you want to use http [request options](https://docs.guzzlephp.org/en/6.5/request-options.html#on-headers) like `timeout`, `connect_timeout` or any other valid option, put them in the driver configuration.
+
+```php
+return [
+
+    'disks' => [
+        /* ... */
+
+        'ovh-swift' => [
+            /* ... */
+            'requestOptions' => [
+                'timeout' => 3.14,
+                'connect_timeout' => 3.14,
+            ],
+        ],
+    
+    ],
+
+];
+```
 
 ### Example
 
