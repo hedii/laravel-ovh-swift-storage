@@ -1,0 +1,33 @@
+name: Tests
+on: [ push, pull_request ]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: [ '7.4' ]
+    name: Testing on PHP ${{ matrix.php-versions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring,bcmath
+          tools: phpunit,composer
+      - name: Install dependencies
+        run: composer install --quiet --no-ansi --no-interaction --no-scripts --no-progress
+      - name: Run tests
+        env:
+          OVH_SWIFT_OPENSTACK_AUTH_URL: https://auth.cloud.ovh.net/v3/
+          OVH_SWIFT_OPENSTACK_REGION: GRA
+          OVH_SWIFT_OPENSTACK_PROJECT_ID: ${{ secrets.OVH_SWIFT_OPENSTACK_PROJECT_ID }}
+          OVH_SWIFT_CONTAINER_NAME: test
+          OVH_SWIFT_PREFIX: prefix
+          OVH_SWIFT_OPENSTACK_USERNAME: ${{ secrets.OVH_SWIFT_OPENSTACK_USERNAME }}
+          OVH_SWIFT_OPENSTACK_PASSWORD: ${{ secrets.OVH_SWIFT_OPENSTACK_PASSWORD }}
+          OVH_SWIFT_VISIBILITY: public
+          OVH_SWIFT_PUBLIC_URL: ''
+          OVH_SWIFT_URL_KEY: ${{ secrets.OVH_SWIFT_URL_KEY }}
+        run: composer test

@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/hedii/laravel-ovh-swift-storage.svg?branch=master)](https://travis-ci.org/hedii/laravel-ovh-swift-storage)
+[![Build Status](https://github.com/hedii/laravel-ovh-swift-storage/workflows/Tests/badge.svg)](https://github.com/hedii/laravel-ovh-swift-storage/actions)
+[![Total Downloads](https://poser.pugx.org/hedii/laravel-ovh-swift-storage/downloads)](//packagist.org/packages/hedii/laravel-ovh-swift-storage)
+[![License](https://poser.pugx.org/hedii/laravel-ovh-swift-storage/license)](//packagist.org/packages/hedii/laravel-ovh-swift-storage)
+[![Latest Stable Version](https://poser.pugx.org/hedii/laravel-ovh-swift-storage/v)](//packagist.org/packages/hedii/laravel-ovh-swift-storage)
 
 # Laravel Ovh Swift Storage
 
