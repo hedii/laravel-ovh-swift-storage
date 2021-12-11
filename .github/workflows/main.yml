@@ -1,7 +1,7 @@
 name: Tests
 on: [ push, pull_request ]
+concurrency: ${{ github.repository }}
 jobs:
-  concurrency: ${{ github.repository }}
   run:
     runs-on: ubuntu-latest
     strategy:
