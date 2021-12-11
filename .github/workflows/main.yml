@@ -1,6 +1,7 @@
 name: Tests
 on: [ push, pull_request ]
 jobs:
+  concurrency: ${{ github.repository }}
   run:
     runs-on: ubuntu-latest
     strategy:
@@ -31,4 +32,3 @@ jobs:
           OVH_SWIFT_PUBLIC_URL: ''
           OVH_SWIFT_URL_KEY: ${{ secrets.OVH_SWIFT_URL_KEY }}
         run: composer test
-        concurrency: only_one_at_a_time
