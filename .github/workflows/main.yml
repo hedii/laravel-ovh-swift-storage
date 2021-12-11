@@ -1,5 +1,6 @@
 name: Tests
 on: [ push, pull_request ]
+concurrency: ${{ github.repository }}
 jobs:
   run:
     runs-on: ubuntu-latest
